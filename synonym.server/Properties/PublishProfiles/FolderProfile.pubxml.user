@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\src\synonym\synonym.Server\bin\Release\net8.0\publish\</_PublishTargetUrl>
+    <History>True|2024-10-31T08:49:48.3805328Z||;True|2024-10-30T20:48:29.0175596+01:00||;True|2024-10-30T20:47:21.3471451+01:00||;False|2024-10-30T20:47:07.2338770+01:00||;True|2024-10-30T20:42:34.0262702+01:00||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>
