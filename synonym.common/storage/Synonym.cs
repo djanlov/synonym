@@ -17,7 +17,7 @@ public class Synonym : ISynonym
     public Synonym(int capacity=1000)
     {
         _capacity = capacity;
-        _dictWords = new(_capacity);
+        _dictWords = new(_capacity, StringComparer.OrdinalIgnoreCase);
         _dictSynonyms = new(_capacity);
     }
 
@@ -51,10 +51,16 @@ public class Synonym : ISynonym
     private static IEnumerable<string> SkipValue(IEnumerator<string> enumerator, string value)
     {
         while (enumerator.MoveNext())
-            if (enumerator.Current != value)
+            if (!enumerator.Current.Equals(value, StringComparison.CurrentCultureIgnoreCase))
                 yield return enumerator.Current;
     }
 
-    public SynonymSearchResult Search(string word) =>
-        new SynonymSearchResult(word, _dictWords.TryGetValue(word, out var id) ? SkipValue(_dictSynonyms[id].GetEnumerator(), word) : Enumerable.Empty<string>());
+    public SynonymSearchResult Search(string word)
+    {
+        var kvp = _dictWords.SingleOrDefault(p => p.Key.Equals(word, StringComparison.CurrentCultureIgnoreCase));
+
+        return kvp.Key is not null
+            ? new SynonymSearchResult(kvp.Key, SkipValue(_dictSynonyms[kvp.Value].GetEnumerator(), word))
+            : new SynonymSearchResult(word, Enumerable.Empty<string>());
+    }
 }
